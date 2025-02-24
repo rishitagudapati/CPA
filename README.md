@@ -1,5 +1,5 @@
 # Collaborative Playlist Analyzer
-This program takes data from any collaborative playlist on Spotify and produces some interesting plots. Here some things you can do with it!
+This program takes data from any collaborative playlist on Spotify and produces some interesting plots. Here are some things you can do with it!
 All of the functions with input take one string: a name, "all", or "total"
 
 ## make pie charts showing the genre distribution:
