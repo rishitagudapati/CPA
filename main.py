@@ -203,7 +203,7 @@ def plot_genres(genre_count, user):
     plt.tight_layout()
 
     # Save the chart
-    plt.savefig(str.lower(user) + '_genres.png')
+    plt.savefig('genres_' + str.lower(user) + '.png')
 
 def plot_total_genres(genre_count):
     if genre_count is None or not genre_count:
@@ -214,18 +214,14 @@ def plot_total_genres(genre_count):
     sorted_genres = sorted(genre_count.items(), key=lambda x: x[1], reverse=True)
     other_count = 0
     for genre in sorted_genres:
-       # print(index)
         if genre[1] <= 2:
             other_count = other_count + genre[1]
 
-    sorted_genres = [g for g in sorted_genres if g[1] > 2]
-    #other_genres = [g for g in sorted_genres if g[1] <= 2]
-    
+    sorted_genres = [g for g in sorted_genres if g[1] > 2]    
     sorted_genres.append(('other', other_count))
     
     # Extract the genres and their counts
     genres, counts = zip(*sorted_genres)
-    #genres, counts = zip(*other_genres)
     
     # Create a pie chart
     plt.figure(figsize=(10, 10))
@@ -235,7 +231,7 @@ def plot_total_genres(genre_count):
     plt.tight_layout()
 
     # Save the chart
-    plt.savefig('total_genres.png')
+    plt.savefig('genres_total.png')
 
 
 # In[150]:
