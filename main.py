@@ -1,26 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[12]:
-
-
 client_id = input('Enter Client ID: ')
 client_secret = input('Enter Client Secret: ')
 playlist_id = input('Enter Playlist ID: ')
-
-
-# In[62]:
-
 
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 from matplotlib.colors import ListedColormap, BoundaryNorm, LinearSegmentedColormap
 import seaborn as sns 
 import numpy as np
-
-
-# In[16]:
-
 
 # ------------------------------ Get Data from Spotify API ------------------------------ #
 import time
@@ -82,11 +71,7 @@ for track in tracks:
 
 print('Done!')
 
-
-# In[146]:
-
-
-# ---------------------------------------------- Read in Collaborators -------------
+# ---------------------------------------------- Read in Collaborators ------------- #
 user_ids = []
 for track in data:
     user_ids.append(track['added_by'])
@@ -144,9 +129,7 @@ for user_id in user_ids:
     collaborators.append(tuple([user_id, user_name]))
     user_names.append(user_name)
 
-
-# In[148]:
-
+# --------------------------------------- Genre Pie Charts ------------------------------ #
 
 def get_user_genres(user_id, data, N):
     # return N genres for each artist (set to N = -1 to return all genres)
@@ -233,18 +216,10 @@ def plot_total_genres(genre_count):
     # Save the chart
     plt.savefig('genres_total.png')
 
-
-# In[150]:
-
-
 def get_userid(name):
     for u in collaborators:
         if u[1] == name: return u[0]
     print('Collaborator does not exist.')
-
-
-# In[162]:
-
 
 # needs to be updated to limit number of genres?
 def genre_chart(name):
@@ -259,10 +234,8 @@ def genre_chart(name):
     else:
         print('Invalid User\n')
         return
-
-
-# In[192]:
-
+        
+# ------------------------------ Correlation Matrix ------------------------------ #
 
 # Create a correlation matrix showing taste match between users
 def plot_correlation():
@@ -304,9 +277,7 @@ def plot_correlation():
     plt.tight_layout()
     plt.savefig('correlation.png')
 
-
-# In[166]:
-
+# -------------------------------------- Genre Variety ------------------------------ #
 
 # Find the number of different genres a specific user listened to
 def calculate_genre_variety(user_genres):
@@ -346,11 +317,9 @@ def plot_varieties():
     users, genre_varieties = zip(*variety)
     create_variety_chart(users, genre_varieties)
 
+# -------------------------------------- Artist Followers ------------------------------ #
 
-# In[178]:
-
-
-# How many followers do each user's artists have?
+# How many followers do each user's artists have? Call this "artist popularity"
 def create_follower_chart(user_songs, user):
     followers_buckets = {
         '< 1K': 0,
@@ -411,9 +380,15 @@ def plot_followers(name):
         print('Invalid User\n')
         return
 
-
-# In[186]:
-
+# ----------------------------------------- Track Popularity ------------------------------ #
+# From the Spotify API documentation:
+# "The popularity of a track is a value between 0 and 100, with 100 being the most popular. 
+# The popularity is calculated by algorithm and is based, in the most part, on the total number 
+# of plays the track has had and how recent those plays are. Generally speaking, songs that are 
+# being played a lot now will have a higher popularity than songs that were played a lot in the past. 
+# Duplicate tracks (e.g. the same track from a single and an album) are rated independently.
+# Artist and album popularity is derived mathematically from track popularity. 
+# Note: the popularity value may lag actual popularity by a few days: the value is not updated in real time."
 
 # How popular are the songs each user listened to?
 def create_popularity_chart(user_songs, user):
@@ -480,11 +455,9 @@ def plot_popularity(name):
         print('Invalid User\n')
         return
 
+# ----------------------------------------- Release Date / Decades ------------------------------ #
 
-# In[212]:
-
-
-# What decades were each user's songs released in?
+# In which decades were each user's songs released?
 def create_decades_chart(user_songs, user):
     decade_counts = {}
     
